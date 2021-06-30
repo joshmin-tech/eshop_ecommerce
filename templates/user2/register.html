@@ -1,0 +1,62 @@
+{% extends 'user/base_index.html' %}
+
+<!-- BLOCK FOR TITLE -->
+{% block content %}
+
+<section class="section-content padding-y">
+
+    <!-- ============================ COMPONENT REGISTER   ================================= -->
+        <div class="card mx-auto" style="max-width:500px; margin-top:40px; border-radius:25px; background-color:rgba(217, 223, 226, 0.8)">
+          <article class="card-body">
+              
+            <header class="mb-4"><h4 class="card-title" style="color:rgb(0, 0, 0)">Sign up</h4></header>
+    
+              <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+    
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label style="color:rgb(3, 3, 0)">First name</label>
+                              {{ form.first_name }}
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label style="color:rgb(0, 0, 0)">Last name</label>
+                              {{ form.last_name }}
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                <div class="form-row">
+                        <div class="col form-group">
+                            <label style="color:rgb(0, 0, 0)">Email</label>
+                          {{ form.email }}
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label style="color:rgb(0, 0, 0)">Phone number</label>
+                          {{ form.phone_number }}
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label style="color:rgb(0, 0, 0)">Create password</label>
+                            {{ form.password }}
+    
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group col-md-6">
+                            <label style="color:rgb(0, 0, 0)">Confirm password</label>
+                            {{ form.confirm_password }}
+                        </div> <!-- form-group end.// -->
+                    </div>
+                    <div class="form-group">                        
+                        <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                    </div> <!-- form-group// -->
+                  <p style="color:red; ">{{ form.email.errors }} </p>
+                  <p style="color:red; "> {{ form.non_field_errors }}</p>
+    
+                </form>
+            </article><!-- card-body.// -->
+        </div> <!-- card .// -->
+        <p class="text-center mt-4">Have an account? <a href=" {% url 'login' %}">Log In</a></p>
+        <br><br>
+    </section>
+
+{% endblock content %}
+<!-- END BLOCK FOR TITLE -->

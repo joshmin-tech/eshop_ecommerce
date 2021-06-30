@@ -1,0 +1,64 @@
+{% extends 'user/base_index.html' %}
+{% load static %}
+<!-- BLOCK FOR TITLE -->
+{% block content %}
+
+
+<div class="container margin_60_35">
+    <div class="main_title">
+        <h2>Best Selling Products</h2>
+       
+    </div>
+    
+    <div class="row small-gutters">
+        {% for i in pro %}
+        <div class="col-6 col-md-4 col-xl-3">
+            <div class="grid_item">
+                <figure>
+                    
+                    <a href="{% url 'product_details' i.id %}">
+                        <img class="img-fluid lazy loaded" style="width: 250px; height: 300px" src="{{ i.images1.url }}" data-src="{{ i.images1.url }}" alt="" data-was-processed="true">
+                        <img class="img-fluid lazy loaded" src="{{ i.images1.url }}" data-src="{{ i.images1.url }}" alt="" data-was-processed="true">
+                    </a>
+                   
+                </figure>
+                <!-- <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i></div> -->
+                <a href="{% url 'product_details' i.id %}">
+                    <h3>{{ i.product_name }}</h3>
+                </a>
+                <div class="price_box">
+                    <span class="new_price">Rs {{ i.price }}</span>
+                    
+                </div>  
+                <ul>
+                    <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a></li>
+                    <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                </ul>
+            </div>
+            <!-- /grid_item -->
+           
+    </div>
+    {% endfor %}
+    <!-- /row -->
+</div>
+</div>
+
+
+
+<!-- <div class="row mt-5 mb-5">
+{% for i in pro %}
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ i.images1.url }}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ i.product_name }}</h5>
+      
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+{% endfor %}
+</div> -->
+
+{% endblock content %}
+<!-- END BLOCK FOR TITLE -->

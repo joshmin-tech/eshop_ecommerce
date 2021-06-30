@@ -1,0 +1,54 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+User view
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+User management
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+
+<div class="table-responsive">
+    <table class="table table-bordered" >
+      <thead>
+        <tr>
+          <th>Sl. No:</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Date joined</th>
+          <th>User Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for i in userdata %}
+        <tr>
+          <td> {{ forloop.counter }} </td>
+          <td> {{ i.first_name }} </td>
+          <td> {{ i.last_name }}</td>
+          <td> {{ i.email }}</td>
+          <td> {{ i.phone_number }} </td>
+          <td>{{ i.date_joined }} </td>
+          <td>{% if i.is_active %}<a class="btn btn-danger" href="{% url 'activeuser' i.id %}">Deativate</a>
+            {% else %}
+          <a class="btn btn-danger bg-success" href="{% url 'activeuser' i.id %}">Activate</a>
+            {% endif %}
+          </td>
+         
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

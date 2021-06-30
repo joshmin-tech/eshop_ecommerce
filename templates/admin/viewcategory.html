@@ -1,0 +1,43 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+Categories
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Categories
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+<div class="table-responsive">
+  <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th>Sl.No:</th>
+        <th>categoryName</th>
+        <th>Description</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in catview %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td> {{ i.category_name }} </td>
+        <td> {{ i.description}} </td>
+        <td><a href="{% url 'editcategory' i.id %}" class="btn btn-outline-info">EDIT</a></td>
+        <td><a class="btn btn-outline-danger" href="{% url 'deletecategory' i.id %}">DELETE</a></td>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

@@ -1,0 +1,207 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+Products Create
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Products Create
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+
+
+<div class="row d-flex justify-content-center" >
+  <div class="col-md-6 grid-margin stretch-card d-flex ">
+                  <div class="card ">
+                    <div class="card-body">
+  
+                      <h4 class="card-title text-center" style="color: red; font-weight:bold;" >{{ heading }}</h4>
+                      {% for message in messages %}
+                      <p>{{message }}</p>
+                      {% endfor %}
+                      <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label"> Product Name</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.product_name }}
+                          </div>                          
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Product Category</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.category }}
+                          </div>
+                        </div>
+  
+                        
+
+                          <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label">Url Slug</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.slug }}
+                          </div>
+                        </div>
+  
+                            <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Brand</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.brand }}
+                          </div>
+                        </div>
+  
+                        <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label" >Price</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.price }}
+                          </div>
+                        </div>
+                      
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Availability</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.is_available }}
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label" >Stock</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.stock }}
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Image 1</label>
+
+                          <div class="card" style="width: 8rem;">
+                            <img src="..." class="card-img-top" id="image1" src="#" alt="your image" />
+                            <div class="card-body">
+                              <p>{{ add_product_form.images1 }}</p>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- <img style="height: 100px; width: 100px" id="blah" src="#" alt="your image" />
+                          <div class="col-sm-9">
+                          {{ add_product_form.images1 }}
+                          </div> -->
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 2</label>
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image2" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images2 }}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 3</label>
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image3" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images3 }}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 4</label>
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image4" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images4 }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="form-group row">
+                            <label  class="col-sm-3 col-form-label">description</label>
+                            <div class="col-sm-9">
+                              {{ add_product_form.description }}
+                            </div>
+                             </div>
+  
+                        <div class="d-flex justify-content-center">
+                        <!-- <a class="btn btn-danger mr-2">Submit</a> -->
+                        <input type="submit" class="btn btn-primary" >
+  
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+  
+  </div>
+
+<script>
+  document.querySelector(".your_class").addEventListener("keypress", function (evt) {
+    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+
+
+
+
+  id_images1.onchange = evt => {
+    const [file] = id_images1.files
+    if (file) {
+      image1.src = URL.createObjectURL(file)
+    }
+  }
+
+  id_images2.onchange = evt => {
+    const [file] = id_images2.files
+    if (file) {
+      image2.src = URL.createObjectURL(file)
+    }
+  }
+
+  id_images3.onchange = evt => {
+    const [file] = id_images3.files
+    if (file) {
+      image3.src = URL.createObjectURL(file)
+    }
+  }
+
+  id_images4.onchange = evt => {
+    const [file] = id_images4.files
+    if (file) {
+      image4.src = URL.createObjectURL(file)
+    }
+  }
+</script>
+{% endblock page_content %}
+
+{% block custom_js %}
+<script>
+  document.getElementById("id_product_name").onkeyup=function(){
+      document.getElementById("id_slug").value=document.getElementById("id_product_name").value.toLowerCase().replace(/ /g,"-");
+  }
+
+   
+</script>
+
+<script>
+ 
+  //prevent e in input price field
+  document.querySelector('#id_price','#id_stock').addEventListener("keypress", function (evt) {
+    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+</script>
+{% endblock custom_js %}

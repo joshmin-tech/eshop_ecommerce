@@ -1,0 +1,53 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+Products List
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Products List
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="table-responsive">
+  <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th>Sl No:</th>
+        <th>product_name</th>
+        <th>images1</th>
+        <th>price</th>
+        <th>brand</th>
+        <th>stock</th>
+        <th>is_available</th>
+        <th>category</th>
+        <th></th>
+        <th></th>
+        <!-- <th>created_date</th>
+        <th>modified_date</th> -->
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in product %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ i.product_name }}</td>
+        <td> <img style="width:60px;" src=" {{ i.images1.url }}" ></td>
+        <td> {{ i.price }}</td>
+        <td> {{ i.brand }}</td>
+        <td> {{ i.stock }}</td>
+        <td> {{ i.is_available }}</td>
+        <td> {{ i.category }}</td>
+        <!-- <td> {{ i.created_date }}</td>
+        <td> {{ i.modified_date }}</td> -->
+        <td><a class="btn btn-success" href="{% url 'editproduct' i.id %}"  >Edit</a></td>
+        <td><a class="btn btn-danger" href="{% url 'deleteproduct' i.id %}" onclick="return confirm('Are you sure you want to delete this item')" >delete</a></td>
+
+   
+    {% endfor %}
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

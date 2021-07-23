@@ -1,0 +1,69 @@
+{% extends 'admin/base_for_report.html' %}
+{% block title %}
+Coupon Management
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Add Coupon
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+<div class="col-md-6" style="margin-left: 150px;">
+    <h1>Add New Coupons</h1>
+    <hr>
+<form method="POST" action="{% url 'coupon_add' %}">
+    {% csrf_token %}
+    <!-- Category:
+    <div class="form-group">
+    <select class="form-control " name="category" aria-label="Default select example">
+        <option selected>-------</option>
+        {% for category in category %}
+        <option value="{{category.id}}">{{category.category_name}}</option>
+        {% endfor %}
+        
+      </select>
+    </div> -->
+    <div class="form-group">
+      <label for="exampleInputEmail1">Coupon Code </label>
+      <input type="" name="coupon_code" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Coupon Code" required>
+      
+    </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Coupon Rate </label>
+        <input type="number" min="1" max="99" name="coupon_rate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Percentage"required>
+        
+      </div>
+      <div class="form-group">
+        <label for="example-date-input" class=""></label>
+          <div class="">
+            <label for="exampleInputEmail1">Start Date</label>
+         <input class="form-control" name="coupon_start" type="date" value="" id="example-date-input"required>
+         <br>
+         <label for="exampleInputEmail1">End Date</label>
+         <input class="form-control" name="coupon_end" type="date" value="" id="example-date-input"required>
+         </div>
+        
+        </div>
+   
+    
+    <input type="submit" class="btn btn-sm " style="background-color: brown; color:white">
+
+</form>
+
+<br>
+<br>
+
+
+<br>
+</div>
+
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

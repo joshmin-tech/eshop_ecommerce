@@ -1,0 +1,101 @@
+{% extends 'admin/base_for_report.html' %}
+{% block title %}
+Offer Management
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Offer Management
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+<div class="col-md-6" style="margin-left: 150px;">
+    <h1>Add Offer to Category</h1>
+    <hr>
+<form method="POST" action="{% url 'offer_category' %}">
+    {% csrf_token %}
+    Category:
+    <div class="form-group">
+    <select class="form-control " name="category" aria-label="Default select example">
+        <option selected>-------</option>
+        {% for category in category %}
+        <option value="{{category.id}}">{{category.category_name}}</option>
+        {% endfor %}
+        
+      </select>
+    </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Offer In Percentage</label>
+        <input type="number" min="1" max="99" name="offer" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Percentage">
+        
+      </div>
+      <div class="form-group">
+        <label for="example-date-input" class=""></label>
+          <div class="">
+            <label for="exampleInputEmail1">Start Offer</label>
+         <input class="form-control" name="start" type="date" value="" id="example-date-input">
+         <br>
+         <label for="exampleInputEmail1">End Offer</label>
+         <input class="form-control" name="end" type="date" value="" id="example-date-input">
+         </div>
+        
+        </div>
+   
+    
+    <input type="submit" class="btn btn-sm " style="background-color: brown; color:white">
+
+</form>
+
+<br>
+<br>
+
+<h1>Add Offer to Product</h1>
+<form method="POST" action="{% url 'offer_product' %}">
+    {% csrf_token %}
+    Product:
+    <div class="form-group">
+    <select class="form-control" name="product" aria-label="Default select example">
+        <option selected>-------</option>
+        {% for product in product %}
+           <option value="{{product.id}}">{{product.product_name}}</option>
+        {% endfor %}
+        
+      </select>
+     </div>
+
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Offer In Percentage</label>
+        <input type="number" min="1" max="99" name="offer" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Percentage">
+        
+      </div>
+      <div class="form-group">
+        <label for="example-date-input" class=""></label>
+          <div class="">
+            <label for="exampleInputEmail1">Start Offer</label>
+         <input class="form-control" name="start" type="date" value="" id="example-date-input">
+         <br>
+         <label for="exampleInputEmail1">End Offer</label>
+         <input class="form-control" name="end" type="date" value="" id="example-date-input">
+         </div>
+        
+        </div>
+   
+    
+    <input type="submit" class="btn btn-sm " style="background-color: brown; color:white">
+
+</form>
+<br>
+<br>
+</div>
+
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

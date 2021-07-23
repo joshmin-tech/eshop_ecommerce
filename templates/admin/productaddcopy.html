@@ -1,0 +1,546 @@
+{% extends 'admin/base_template.html' %}
+{% load static %}
+{% block title %}
+Products Create
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Products Create
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+<link href="{% static 'admin/assets/css/cropper.min.css' %}" rel="stylesheet" type="text/css"/>
+
+<form method="POST" enctype="multipart/form-data" id="productForm" >
+  {% csrf_token %}
+ 
+
+
+  
+  <br>
+      
+
+  
+
+
+  <input type="submit" class="btn btn-block  btn-primary" value="Add Product">
+  <br>
+
+
+  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Crop Image</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="result1"></div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                      </button>
+                      <button type="button" id="btnCrop1" class="btn save1 btn-primary">Save changes
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {#            modal#}
+  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Crop Image</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="box-2">
+                      <div style="max-width: 100%;" class="result2"></div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                  </button>
+                  <button type="button" id="btnCrop2" class="btn save2 btn-primary">Save changes
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  {#            modal#}
+  {#            modal#}
+  <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Crop Image</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="box-2">
+                      <div style="width:10em;height: 100%" class="result3"></div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                  </button>
+                  <button type="button" id="btnCrop3" class="btn save3 btn-primary">Save changes
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  {# modal 4 #}
+  <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLongTitle">Crop Image</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+         </div>
+         <div class="modal-body">
+             <div class="box-2">
+                 <div style="width:10em;height: 100%" class="result4"></div>
+             </div>
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+             </button>
+             <button type="button" id="btnCrop4" class="btn save4 btn-primary">Save changes
+             </button>
+         </div>
+     </div>
+ </div>
+</div>
+     
+
+</form>
+</div>
+
+
+<div class="row d-flex justify-content-center" >
+  <div class="col-md-6 grid-margin stretch-card d-flex ">
+                  <div class="card ">
+                    <div class="card-body">
+  
+                      <h4 class="card-title text-center" style="color: red; font-weight:bold;" >{{ heading }}</h4>
+                      {% for message in messages %}
+                      <p>{{message }}</p>
+                      {% endfor %}
+                      <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label"> Product Name</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.product_name }}
+                          </div>                          
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Product Category</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.category }}
+                          </div>
+                        </div>
+  
+                        
+
+                          <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label">Url Slug</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.slug }}
+                          </div>
+                        </div>
+  
+                            <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Brand</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.brand }}
+                          </div>
+                        </div>
+  
+                        <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label" >Price</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.price }}
+                          </div>
+                        </div>
+                      
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Availability</label>
+                          <div class="col-sm-9">
+                          {{ add_product_form.is_available }}
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label  class="col-sm-3 col-form-label" >Stock</label>
+                          <div class="col-sm-9">
+                            {{ add_product_form.stock }}
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Image 1</label>
+
+                          <div class="card" style="width: 8rem;">
+                            <img src="..." class="card-img-top" id="image1" src="#" alt="your image" />
+                            <div class="card-body">
+                              <p>{{ add_product_form.images1 }}</p>
+                              <textarea name="pro_img1" id="pro_img1" style="display: none;"></textarea>
+                              <img src="" id="imageview1" style="height: auto;width: 100px;">
+                            </div>
+                          </div>
+                        </div>
+                          <!-- <img style="height: 100px; width: 100px" id="blah" src="#" alt="your image" />
+                          <div class="col-sm-9">
+                          {{ add_product_form.images1 }}
+                          </div> -->
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 2</label>
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image2" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images2 }}</p>
+                                <textarea name="pro_img2" id="pro_img2" style="display: none;"></textarea>
+                                <img src="" id="imageview2" style="height: auto;width: 100px;">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 3</label>
+                            <textarea name="pro_img3" id="pro_img3" style="display: none;"></textarea>
+                            <img src="" id="imageview3" style="height: auto;width: 100px;">
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image3" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images3 }}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Image 4</label>
+                            <textarea name="pro_img4" id="pro_img4" style="display: none;"></textarea>
+                            <img src="" id="imageview4" style="height: auto;width: 100px;">
+  
+                            <div class="card" style="width: 8rem;">
+                              <img src="..." class="card-img-top" id="image4" src="#" alt="your image" />
+                              <div class="card-body">
+                                <p>{{ add_product_form.images4 }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="form-group row">
+                            <label  class="col-sm-3 col-form-label">description</label>
+                            <div class="col-sm-9">
+                              {{ add_product_form.description }}
+                            </div>
+                             </div>
+  
+                        <div class="d-flex justify-content-center">
+                        <!-- <a class="btn btn-danger mr-2">Submit</a> -->
+                        <input type="submit" class="btn btn-primary" >
+  
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+  
+  </div>
+
+<script>
+  document.querySelector(".your_class").addEventListener("keypress", function (evt) {
+    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+
+</script>
+{% endblock page_content %}
+
+{% block custom_js %}
+<script>
+  document.getElementById("id_product_name").onkeyup=function(){
+      document.getElementById("id_slug").value=document.getElementById("id_product_name").value.toLowerCase().replace(/ /g,"-");
+  }
+
+   
+</script>
+
+<script>
+ 
+  //prevent e in input price field
+  document.querySelector('#id_price','#id_stock').addEventListener("keypress", function (evt) {
+    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    let result1 = document.querySelector('.result1'),
+        save1 = document.querySelector('.save1'),
+        cropped1 = document.querySelector('.imageview1'),
+        upload1 = document.querySelector('#id_image1'),
+        cropper1 = '';
+
+    upload1.addEventListener('change', (e) => {
+            var fileName = document.getElementById("id_image1").value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                if (e.target.files.length) {
+                    // start file reader
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if (e.target.result) {
+                            // create new image
+                            $("#exampleModalCenter1").modal("show");
+                            let img1 = document.createElement('img');
+                            img1.id = 'image1';
+                            img1.src = e.target.result
+                            // clean result before
+                            result1.innerHTML = '';
+                            // append new image
+                            result1.appendChild(img1);
+                            // init cropper
+                            cropper1 = new Cropper(img1, {
+                                aspectRatio: 3 / 4,
+                                viewMode: 2,
+                            });
+                        }
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            }
+            else {
+                swal("this file type is not supported", {
+                    icon: "error",
+                })
+                fileName = "";
+                console.log(fileName)
+            }
+        }
+    );
+
+    save1.addEventListener('click', (e) => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc1 = cropper1.getCroppedCanvas({
+            width: 300,
+            height: 500// img disp value
+        }).toDataURL();
+        $("#exampleModalCenter1").modal("hide");
+        imageview1.src = imgSrc1;
+        $('#pro_img1').val(imgSrc1)
+    });
+</script>
+<script>
+  let result2 = document.querySelector('.result2'),
+      save2 = document.querySelector('.save2'),
+      cropped2 = document.querySelector('.imageview2'),
+      upload2 = document.querySelector('#id_images2'),
+      cropper2 = '';
+
+  upload2.addEventListener('change', (e) => {
+          var fileName = document.getElementById("id_images2").value;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+          if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+              if (e.target.files.length) {
+                  // start file reader
+                  const reader = new FileReader();
+                  reader.onload = (e) => {
+                      if (e.target.result) {
+                          // create new image
+                          $("#exampleModalCenter2").modal("show");
+                          let img2 = document.createElement('img');
+                          img2.id = 'image2';
+                          img2.src = e.target.result;
+                          // clean result before
+                          result2.innerHTML = '';
+                          // append new image
+                          result2.appendChild(img2);
+                          // init cropper
+                          cropper2 = new Cropper(img2, {
+                              aspectRatio: 3 / 4,
+                              viewMode: 2,
+                          });
+                      }
+                  };
+                  reader.readAsDataURL(e.target.files[0]);
+              }
+          }
+          else {
+              swal("this file type is not supported", {
+                  icon: "error",
+              })
+              fileName = "";
+              console.log(fileName)
+          }
+      }
+  );
+
+  save2.addEventListener('click', (e) => {
+      e.preventDefault();
+      // get result to data uri
+      let imgSrc2 = cropper2.getCroppedCanvas({
+          width: 300,
+          height: 500// img disp value
+      }).toDataURL();
+      $("#exampleModalCenter2").modal("hide");
+      imageview2.src = imgSrc2;
+      $('#pro_img2').val(imgSrc2)
+  });
+</script>
+<script>
+let result3 = document.querySelector('.result3'),
+    save3 = document.querySelector('.save3'),
+    cropped3 = document.querySelector('.imageview3'),
+    upload3 = document.querySelector('#id_images3'),
+    cropper3 = '';
+
+upload3.addEventListener('change', (e) => {
+    var fileName = document.getElementById("id_images3").value;
+    var idxDot = fileName.lastIndexOf(".") + 1;
+    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+    if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+        if (e.target.files.length) {
+            // start file reader
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target.result) {
+                    // create new image
+                    $("#exampleModalCenter3").modal("show");
+                    let img3 = document.createElement('img');
+                    img3.id = 'image3';
+                    img3.src = e.target.result
+                    // clean result before
+                    result3.innerHTML = '';
+                    // append new image
+                    result3.appendChild(img3);
+                    // init cropper
+                    cropper3 = new Cropper(img3, {
+                        aspectRatio: 3 / 4,
+                        viewMode: 2,
+                    });
+                }
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    } else {
+        swal("this file type is not supported", {
+            icon: "error",
+        })
+        fileName = "";
+        console.log(fileName)
+    }
+});
+
+save3.addEventListener('click', (e) => {
+    e.preventDefault();
+    // get result to data uri
+    let imgSrc3 = cropper3.getCroppedCanvas({
+        width: 300,
+        height: 500// img disp value
+    }).toDataURL();
+    $("#exampleModalCenter3").modal("hide");
+    imageview3.src = imgSrc3;
+    $('#pro_img3').val(imgSrc3)
+});
+</script>
+
+<script>
+let result4 = document.querySelector('.result4'),
+  save4 = document.querySelector('.save4'),
+  cropped4 = document.querySelector('.imageview4'),
+  upload4 = document.querySelector('#id_images4'),
+  cropper4 = '';
+
+upload4.addEventListener('change', (e) => {
+  var fileName = document.getElementById("id_images4").value;
+  var idxDot = fileName.lastIndexOf(".") + 1;
+  var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+  if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+      if (e.target.files.length) {
+          // start file reader
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              if (e.target.result) {
+                  // create new image
+                  $("#exampleModalCenter4").modal("show");
+                  let img4 = document.createElement('img');
+                  img4.id = 'image4';
+                  img4.src = e.target.result
+                  // clean result before
+                  result4.innerHTML = '';
+                  // append new image
+                  result4.appendChild(img4);
+                  // init cropper
+                  cropper4 = new Cropper(img4, {
+                      aspectRatio: 3 / 4,
+                      viewMode: 2,
+                  });
+              }
+          };
+          reader.readAsDataURL(e.target.files[0]);
+      }
+  } else {
+      swal("this file type is not supported", {
+          icon: "error",
+      })
+      fileName = "";
+      console.log(fileName)
+  }
+});
+
+save4.addEventListener('click', (e) => {
+  e.preventDefault();
+  // get result to data uri
+  let imgSrc4 = cropper4.getCroppedCanvas({
+      width: 300,
+      height: 500// img disp value
+  }).toDataURL();
+  $("#exampleModalCenter4").modal("hide");
+  imageview4.src = imgSrc4;
+  $('#pro_img4').val(imgSrc4)
+});
+</script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+{% endblock custom_js %}

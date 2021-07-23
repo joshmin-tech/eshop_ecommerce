@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+    
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/fontawesome/css/all.min.css' %}">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/jqvmap/dist/jqvmap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/summernote/summernote-bs4.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css' %}">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/css/components.css' %}">
+
+  <!-- for pie diagram -->
+  <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+
+  {% block custom_css %}
+  {% endblock custom_css %}
+</head>
+<style>
+  html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      {% include 'admin/navbar.html' %}
+      {% include 'admin/sidebar.html' with id=form.instance.id %}
+      
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+              <h1>
+                  {% block page_title %}
+                  {% endblock page_title %}
+              </h1>
+          </div>
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == "success" %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% if message.tags == "error" %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+
+        
+
+
+          {% block page_content %}
+          <section class="section">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">
+                    
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-archive"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Total Orders</h4>
+                    </div>
+                    <div class="card-body">
+                      59
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">
+                    
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-rupee-sign"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Total Orders</h4>
+                    </div>
+                    <div class="card-body">
+                      59
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">                   
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-shopping-bag"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Total Orders</h4>
+                    </div>
+                    <div class="card-body">
+                      59
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Turnover</h4>
+                  </div>
+                  <div id="container" style="width: 600px; height: 600px"></div>
+                  <!-- <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                    <canvas id="myChart" height="491" width="933" style="display: block; height: 393px; width: 747px;" class="chartjs-render-monitor"></canvas>
+                  </div> -->
+                </div>
+              </div>
+
+
+
+          
+          </section>
+
+          {% endblock page_content %}
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2021 <div class="bullet"></div> Eshopplus online shopping platform
+        </div>
+        <div class="footer-right">
+          
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <!-- <script src="{% static 'admin/assets/modules/jquery.min.js' %}"></script> -->
+  <script src="{% static 'admin/assets/modules/popper.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/tooltip.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/nicescroll/jquery.nicescroll.min.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/moment.min.js' %}"></script>
+  <script src="{% static 'admin/assets/js/stisla.js' %}"></script>
+  
+  <!-- JS Libraies -->
+  <script src="{% static 'admin/assets/modules/jquery.sparkline.min.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/chart.min.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/summernote/summernote-bs4.js' %}"></script>
+  <script src="{% static 'admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js' %}"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="{% static 'admin/assets/js/page/index.js' %}"></script>
+  
+  <!-- Template JS File -->
+  <script src="{% static 'admin/assets/js/scripts.js' %}"></script>
+  <script src="{% static 'admin/assets/js/custom.js' %}"></script>
+  {% block custom_js %}
+  <script>
+    anychart.onDocumentReady(function() {
+
+      // set the data
+      var data = [
+          {x: "Paypal", value: "{{sum_paypal}}"},
+          {x: "COD", value: "{{sum_cod}}"},
+          {x: "Razor Pay", value: "{{sum_razor}}"},
+        
+      ];
+    
+      // create the chart
+      var chart = anychart.pie();
+    
+      // set the chart title
+      chart.title("Receipts Categorised by Payment Methods");
+    
+      // add the data
+      chart.data(data);
+    
+      // display the chart in the container
+      chart.container('container');
+      chart.draw();
+    
+    });
+  </script>
+  {% endblock custom_js %}
+
+
+</body>
+</html>

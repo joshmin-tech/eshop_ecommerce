@@ -1,0 +1,300 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="https://www.paypal.com/sdk/js?client-id=AXMLZI1s5uWt6q-Z-Ith5-clepRsIRlugkEOVlpDNB4Oc1BEBF6AYLchALiY2FdT_yUng7zfcpB3Ziul&currency=USD"></script>
+
+<!-- cdn for plus minus button -->
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 text-center">
+                    <h2 class="breadcrumb-title">Place Order</h2>
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Place Order</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+
+    <!-- checkout area start -->
+    
+     
+    <div class="checkout-area pt-100px pb-100px">
+        <div class="container">
+            <div class="row">
+                <!-- billing address details -->
+                <div class="col-lg-6 mt-md-30px mt-lm-30px ">
+                    <div class="your-order-area">
+                        <form action="{% url 'payments' order_user.order_number %}" method="POST">
+                            {% csrf_token %}
+                        <h3>Your Billing Address</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-product-info">
+                              
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Name</li>
+                                        <li>{{order_user.first_name}} {{order_user.last_name}}</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Address</li>
+                                        <li>{{order_user.address_line1}}<br>
+                                            {{order_user.address_line2}}<br>
+                                            {{order_user.city}}<br>
+                                            {{order_user.state}}</li>
+                                    </ul>
+                                </div>
+                              
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Phone Number</li>
+                                        <li>{{order_user.phone}}</li>
+                                    </ul>
+                                </div>
+
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Email</li>
+                                        <li>{{order_user.email}}</li>
+                                    </ul>
+                                </div>
+                               
+                            </div>
+                           
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <!-- product deatils -->
+                <div class="col-lg-6 mt-md-30px mt-lm-30px ">
+                    <div class="your-order-area">
+                       
+                        <h3>Product Details</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-product-info">
+                                <div class="your-order-top">
+                                    <ul>
+                                        <li>Product</li>                
+                                        <li>Total</li>
+                                    </ul>
+                                </div>
+                                {% for cart_item in cart_items %}
+                                <div class="your-order-middle">
+                                    <ul>
+                                        <li><span class="order-middle-left">{{ cart_item.product.product_name }} X {{ cart_item.quantity }}</span> 
+                                            
+                                            <span class="order-price">₹ {{ cart_item.sub_total }} </span></li>
+                                        <p class="order-price">(Per Unit Price ₹ {{ cart_item.product.price }} )</p>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Delivery Charges</li>
+                                        <li>₹ {{delivery_chrg}}</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        {% if coupon_offer <= 1 %}
+                                        {% else %}
+                                        <li class="your-order-shipping">Less: Offer Applied</li>
+                                        <li>₹ ({{coupon_offer}})</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <div class="your-order-total">
+                                    <ul>
+                                        <li class="order-total">Total</li>
+                                        <li>₹ {{grand_total}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        
+                        <br>
+                        <div class="payment-method">
+                            <div class="payment-accordion element-mrg">
+                                <div id="faq" class="panel-group">
+                                    <div class="panel panel-default single-my-account m-0">
+                                        <div class="panel-heading my-account-title">
+                                            <h4 class="panel-title">Choose Your Payment Method<br><br>
+                                                <a data-bs-toggle="collapse"
+                                                    href="#my-account-1" class="collapsed"
+                                                    aria-expanded="true">Cash on Delivery</a>
+                                            </h4>
+                                        </div>
+                                        <div id="my-account-1" class="panel-collapse collapse show"
+                                            data-bs-parent="#faq">
+
+                                            
+                                                <div class="Place-order mt-25">
+                                                    <button type="submit" class="btn btn-success btn-lg p-3 col-12">Confirm Order (COD)</button>
+                                                    <!-- <a  class="btn btn-hover" >Place Order</a> -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default single-my-account m-0">
+                                        <div class="panel-heading my-account-title">
+                                            <h4 class="panel-title"><a data-bs-toggle="collapse"
+                                                    href="#my-account-2" aria-expanded="false"
+                                                    class="collapsed">Razor Pay</a></h4>
+                                                </div>
+                                                <div id="my-account-2" class="panel-collapse collapse"
+                                                     data-bs-parent="#faq">
+
+                                                   
+                                                    </form>
+                                                   
+                                                    <form id="razor-form"  action="{% url 'razor_pay' %}" method="POST" >{% csrf_token %}
+                                                      <script
+                                                          src="https://checkout.razorpay.com/v1/checkout.js"
+                                                          data-key="rzp_test_66SxnWUSh3rTy7"
+                                                          data-amount="{{razorpay_total}}" 
+                                                          data-currency="INR"
+                                                          data-order_id="{{payment.id}}"
+                                                          data-buttontext="Pay with Razorpay"
+                                                          data-name="Eshop Plus"
+                                                          data-description="Shop up to your Standard"
+                                                          data-image="{% static 'eshop/assets/images/eshoplogo.png' %}"
+                                                          data-prefill.name="Joshmin R S"
+                                                          data-prefill.email="support@eshopplus.com"
+                                                          data-theme.color="green"
+                                                      ></script>
+                                                      <input type="hidden" custom="Hidden Element" name="order_id" value="{{order_user.order_number}}" >
+                                                      </form> 
+                                              
+                                                    
+                                                </div>
+                                            <br>
+                                    </div>
+
+                                    <div class="panel panel-default single-my-account m-0">
+                                        <div class="panel-heading my-account-title">
+                                            <h4 class="panel-title"><a data-bs-toggle="collapse"
+                                                    href="#my-account-3" aria-expanded="false"
+                                                    class="collapsed">Paypal</a></h4>
+                                        </div>
+                                        <div id="my-account-3" class="panel-collapse collapse"
+                                            data-bs-parent="#faq">
+
+                                            <div id="paypal-button-container">
+                                                <!-- paypal button -->
+                                            </div>
+                                        </div>
+                                    </div>
+                     
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    <!-- checkout area end -->
+    
+
+    <script>
+        function getCookie(name) {
+             let cookieValue = null;
+             if (document.cookie && document.cookie !== '') {
+                 const cookies = document.cookie.split(';');
+                 for (let i = 0; i < cookies.length; i++) {
+                     const cookie = cookies[i].trim();
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+       // Render the PayPal button into #paypal-button-container
+       var amount= "{{ paypal_total }}"
+       amount = Math.round(amount)
+       var url= "{%  url 'payment_method_paypal' %}"
+       var csrftoken = getCookie('csrftoken');
+       var order_id="{{ order_user.order_number }}"
+       var redirect_url="{% url 'payment_complete' %}"
+  
+
+     
+       
+       paypal.Buttons({
+     
+     
+           // Set up the transaction
+           createOrder: function(data, actions) {
+               return actions.order.create({
+                   purchase_units: [{
+                       amount: {
+                           value: amount,
+                       }
+                   }]
+               });
+           },
+     
+           // Finalize the transaction
+           onApprove: function(data, actions) {
+               return actions.order.capture().then(function(details) {
+                   // Show a success message to the buyer
+             
+                   sendData();
+                   // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                   function sendData(){
+                     
+     
+                     fetch( url,{
+                       method:"POST",
+                       headers:{
+                                 "Content-type":"application/json",
+                                 "X-CSRFToken": csrftoken,
+                               },
+                       body:JSON.stringify({
+                                 orderID:order_id,
+                                 trans_ID:details.id,
+                                 payment_method:"PayPal",
+                                 status:details.status,
+     
+                             }),
+                             
+                     })
+                     .then((response)=>response.json())
+                     .then((data) =>{
+                        window.location.href=redirect_url +'?order_number='+data.order_number+'&payment_id='+data.transID
+                    });
+
+                }
+            });
+        },
+
+        style: {
+            layout: 'horizontal'
+        }
+        
+
+
+    }).render('#paypal-button-container');
+     </script>
+ 
+
+
+{% endblock %}

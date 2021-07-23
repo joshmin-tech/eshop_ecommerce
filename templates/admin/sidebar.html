@@ -2,20 +2,20 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="/"> <img src="{% static 'admin/assets/img/logopng.png' %}" alt="logo" width="130"  /></a>
+        <a href="{% url 'adminhome' %}"> <img src="{% static 'eshop/assets/images/eshoplogo.png' %}" alt="logo" width="130"  /></a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">EShop+</a>
+        <a href="{% url 'adminhome' %}">EShop+</a>
       </div>
       <ul class="sidebar-menu">
-        <li class="menu-header">Dashboard</li>
+        <li class="menu-header" style="text-align:center;" >Dashboard</li>
 
         <!-- Category menu -->
         {% url 'category' as category %}
         {% url 'viewcategory' as viewcategory %}
         
         <li class="dropdown {% if request.path == category %}active{% endif %}{% if request.path == viewcategory %}active{% endif %}">
-          <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Category</span></a>
+          <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Category</span></a>
           <ul class="dropdown-menu">
             <li class={% if request.path == viewcategory %}active{% endif %}><a class="nav-link" href="{% url 'viewcategory' %}">All Categories</a></li>
             <li class={% if request.path == category %}active{% endif %}><a class="nav-link" href="{% url 'category' %}">Add Categories</a></li>
@@ -25,7 +25,7 @@
           {% url 'view_product' as view_product %}
           {% url 'add_product' as add_product %}
           <li class="dropdown {% if request.path == view_product %}active{% endif %}{% if request.path == add_product %}active{% endif %}">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Products</span></a>
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Products</span></a>
             <ul class="dropdown-menu">
               <li class={% if request.path == view_product %}active{% endif %}><a class="nav-link" href="{% url 'view_product' %}">All Products</a></li>
               <li class={% if request.path == add_product %}active{% endif %}><a class="nav-link" href="{% url 'add_product' %}">Add Products</a></li>
@@ -35,10 +35,59 @@
           <!-- User views -->
           {% url 'userview' as userview %}
           <li class="dropdown {% if request.path == userview %}active{% endif %}">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>User Management</span></a>
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>User Management</span></a>
             <ul class="dropdown-menu">
-              <li class={% if request.path == view_product %}active{% endif %}><a class="nav-link" href="{% url 'userview' %}">All Users</a></li>
+              <li class={% if request.path == userview %}active{% endif %}><a class="nav-link" href="{% url 'userview' %}">All Users</a></li>
      
+            </ul>          
+          </li>
+
+           <!-- Order views -->
+           {% url 'view_order' as view_order %}
+           <li class="dropdown {% if request.path == view_order %}active{% endif %}">
+             <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Order Management</span></a>
+             <ul class="dropdown-menu">
+               <li class={% if request.path == view_order %}active{% endif %}><a class="nav-link" href="{% url 'view_order' %}">All Orders</a></li>
+      
+             </ul>          
+           </li>
+
+          <!-- sales report views -->
+          {% url 'sales_report' as sales_report %}
+          <li class="dropdown {% if request.path == sales_report %}active{% endif %}">
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Report Management</span></a>
+            <ul class="dropdown-menu">
+              <li class={% if request.path == sales_report %}active{% endif %}><a class="nav-link" href="{% url 'sales_report' %}">Sales Report</a></li>
+    
+            </ul>          
+          </li>
+
+          {% url 'offer_view' as offer_view %}
+          {% url 'offer_add' as offer_add %}
+          <li class="dropdown {% if request.path == offer_view %}active{% endif %}{% if request.path == offer_add %}active{% endif %}">
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Offer Management</span></a>
+            <ul class="dropdown-menu">
+              <li class={% if request.path == offer_view %}active{% endif %}><a class="nav-link" href="{% url 'offer_view' %}">View Offers</a></li>
+              <li class={% if request.path == offer_add %}active{% endif %}><a class="nav-link" href="{% url 'offer_add' %}">Add Offers</a></li>
+            </ul>          
+          </li>
+
+          {% url 'coupon_view' as coupon_view %}
+          {% url 'coupon_add' as coupon_add %}
+          <li class="dropdown {% if request.path == coupon_view %}active{% endif %}{% if request.path == coupon_add %}active{% endif %}">
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Coupon Management</span></a>
+            <ul class="dropdown-menu">
+              <li class={% if request.path == coupon_view %}active{% endif %}><a class="nav-link" href="{% url 'coupon_view' %}">View Coupons</a></li>
+              <li class={% if request.path == coupon_add %}active{% endif %}><a class="nav-link" href="{% url 'coupon_add' %}">Add Coupons</a></li>
+            </ul>          
+          </li>
+
+          {% url 'rating' as rating %}
+          <li class="dropdown {% if request.path == rating %}active{% endif %}">
+            <a href="" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Reviews and Rating</span></a>
+            <ul class="dropdown-menu">
+              <li class={% if request.path == rating %}active{% endif %}><a class="nav-link" href="{% url 'rating' %}">Rating Management</a></li>
+    
             </ul>          
           </li>
 

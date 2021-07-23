@@ -33,6 +33,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="{% static 'eshop/assets/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'eshop/assets/css/custom.css' %}" />
 
 </head>
 
@@ -44,7 +45,7 @@
                 <div class="row">
                     <div class="col-auto align-self-center">
                         <div class="header-logo">
-                            <a href="index.html"><img src="{% static 'eshop/assets/images/eshoplogo.png' %}" width="250" 
+                            <a href="{% url 'index' %}"><img src="{% static 'eshop/assets/images/eshoplogo.png' %}" width="250" 
                                 height="100" alt="Site Logo" /></a>
                         </div>
                     </div>
@@ -55,7 +56,7 @@
                                     
                                 </li>
                                 <!-- <li><a href="about.html">About</a></li> -->
-                                <li class="dropdown position-static"><a href="about.html">Pages <i class="fa fa-angle-down"></i></a>
+                                <!-- <li class="dropdown position-static"><a href="about.html">Pages <i class="fa fa-angle-down"></i></a>
                                     <ul class="mega-menu d-block">
                                         <li class="d-flex">
                                             <ul class="d-block">
@@ -89,11 +90,11 @@
                                         </li>
                                     </ul>
                                 </li>
-                             
+                              -->
                                   
                                     
                                 </li>
-                                <li class="dropdown "><a href="#">Categories <i class="fa fa-angle-down"></i></a>
+                                <li class="dropdown "><a href="">Categories<i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="{% url 'store' %}">All Products</a></li>
                                         {% for category in links %}
@@ -117,21 +118,26 @@
                                 <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
                                         class="pe-7s-users"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="my-account.html">My account</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    {% if user.id is None %}
                                     <li><a class="dropdown-item" href="{% url 'login' %}">Sign in</a></li>
                                     <li><a class="dropdown-item" href="{% url 'register' %}">Sign up</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'user_profile_dashboard' %}">{{user.first_name}}'s Account</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                    {% endif %}
+                                
+
                                 </ul>
                             </div>
                             <!-- Single Wedge Start -->
-                            <a href="#offcanvas-wishlist" class="header-action-btn offcanvas-toggle">
+                            <a href="#offcanvas-wishlist" class="header-action-btn  ">
                                 <i class="pe-7s-like"></i>
                             </a>
                             <!-- Single Wedge End -->
-                            <a href="#offcanvas-cart"
-                                class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                            <a href="{% url 'carts' %}"
+                                class="header-action-btn header-action-btn-cart  pr-0">
                                 <i class="pe-7s-shopbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num">{{cart_count}}</span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu"
@@ -166,14 +172,14 @@
                                 <div class="footer-links">
                                     <div class="footer-row">
                                         <ul class="align-items-center">
-                                            <li class="li"><a class="single-link" href="about.html">About us</a></li>
+                                            <li class="li"><a class="single-link" href="#">About us</a></li>
                                             <li class="li"><a class="single-link" href="#">Delivery information</a></li>
-                                            <li class="li"><a class="single-link" href="privacy-policy.html">Privacy
-                                                    Policy</a></li>
+                                            <!-- <li class="li"><a class="single-link" href="#">Privacy
+                                                    Policy</a></li> -->
                                             <li class="li"><a class="single-link" href="#">Sales</a></li>
                                             <li class="li"><a class="single-link" href="#">Terms & Conditions</a></li>
                                             <li class="li"><a class="single-link" href="#">Shipping Policy</a></li>
-                                            <li class="li"><a class="single-link" href="#">EMI Payment</a></li>
+                                            <!-- <li class="li"><a class="single-link" href="#">EMI Payment</a></li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -187,15 +193,15 @@
                                 <div class="footer-links">
                                     <div class="footer-row">
                                         <ul class="align-items-center">
-                                            <li class="li"><a class="single-link" href="my-account.html"> My account</a>
+                                            <li class="li"><a class="single-link" href="#"> My account</a>
                                             </li>
-                                            <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
-                                            <li class="li"><a class="single-link" href="#">Returns</a></li>
+                                            <li class="li"><a class="single-link" href="#">My orders</a></li>
+                                            <!-- <li class="li"><a class="single-link" href="#">Returns</a></li> -->
                                             <li class="li"><a class="single-link"
                                                     href="shop-left-sidebar.html">Shipping</a></li>
-                                            <li class="li"><a class="single-link" href="wishlist.html">Wishlist</a></li>
+                                            <li class="li"><a class="single-link" href="#">Wishlist</a></li>
                                             <li class="li"><a class="single-link" href="#">How Does It Work</a></li>
-                                            <li class="li"><a class="single-link" href="#">Merchant Sign Up</a></li>
+                                            <!-- <li class="li"><a class="single-link" href="#">Merchant Sign Up</a></li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -211,12 +217,12 @@
                                         <ul class="align-items-center">
                                             <li class="li"><a class="single-link" href="index.html">Affiliate</a></li>
                                             <li class="li"><a class="single-link"
-                                                    href="shop-left-sidebar.html">Bestsellers</a></li>
+                                                    href="#">Bestsellers</a></li>
                                             <li class="li"><a class="single-link" href="#">Discount</a></li>
-                                            <li class="li"><a class="single-link" href="#">Latest products</a></li>
-                                            <li class="li"><a class="single-link" href="#">Sale</a></li>
+                                            <!-- <li class="li"><a class="single-link" href="#">Latest products</a></li> -->
+                                            <!-- <li class="li"><a class="single-link" href="#">Sale</a></li> -->
                                             <li class="li"><a class="single-link" href="#">All Collection</a></li>
-                                            <li class="li"><a class="single-link" href="contact.html">Contact Us</a>
+                                            <li class="li"><a class="single-link" href="#">Contact Us</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -232,12 +238,12 @@
                                 <div class="footer-links">
                                     <!-- News letter area -->
                                     <p class="mail">If you have any question.please <br>
-                                        contact us at <a href="mailto:demo@example.com">demo@example.com</a> </p>
-                                    <p class="address"><i class="pe-7s-map-marker"></i> <span>Your address goes here.
+                                        contact us at <a href="mailto:eshopplus@support.com">eshopplus@support.com</a> </p>
+                                    <p class="address"><i class="pe-7s-map-marker"></i> <span>E Shop Plus Pvt Ltd
                                             <br>
-                                            123, Address.</span> </p>
-                                    <p class="phone m-0"><i class="pe-7s-phone"></i><span><a href="tel:0123456789">+ 0 123
-                                                456 789</a> <br> <a href="tel:0123456789">+ 0 123 456 789</a></span></p>
+                                            Head Office, Kakkanad</span> </p>
+                                    <!-- <p class="phone m-0"><i class="pe-7s-phone"></i><span><a href="tel:0123456789">+ 0 123
+                                                456 789</a> <br> <a href="tel:0123456789">+ 0 123 456 789</a></span></p> -->
 
                                     <!-- News letter area  End -->
                                 </div>
@@ -256,10 +262,11 @@
                                             src="{% static 'eshop/assets/images/icons/payment.png' %}" alt="payment-image"></a></div>
                             </div>
                             <div class="col-md-6 text-center text-md-start">
-                                <p class="copy-text"> © 2021 <strong>Mioca.</strong> Made With <i class="fa fa-heart"
+                                <p class="copy-text"> © 2021 <strong>Eshop+</strong>
+                                    <!-- <i class="fa fa-heart"
                                         aria-hidden="true"></i> By <a class="company-name"
-                                        href="https://hasthemes.com/">
-                                        <strong> HasThemes</strong></a>.</p>
+                                        href="">
+                                        <strong> Eshop Plus Media</strong></a>.</p> -->
                             </div>
                         </div>
                     </div>
@@ -293,98 +300,10 @@
     <div class="offcanvas-overlay"></div>
 
     <!-- OffCanvas Wishlist Start -->
-    <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-        <div class="inner">
-            <div class="head">
-                <span class="title">Wishlist</span>
-                <button class="offcanvas-close">×</button>
-            </div>
-            <div class="body customScroll">
-                <ul class="minicart-product-list">
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/1.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand-Made Garlic Mortar</a>
-                            <span class="quantity-price">1 x <span class="amount">$21.86</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/2.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Handmade Ceramic Pottery</a>
-                            <span class="quantity-price">1 x <span class="amount">$13.28</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/3.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand Painted Bowls</a>
-                            <span class="quantity-price">1 x <span class="amount">$17.34</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="foot">
-                <div class="buttons">
-                    <a href="wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
     <!-- OffCanvas Wishlist End -->
     <!-- OffCanvas Cart Start -->
-    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-        <div class="inner">
-            <div class="head">
-                <span class="title">Cart</span>
-                <button class="offcanvas-close">×</button>
-            </div>
-            
-            <div class="body customScroll">
-                <ul class="minicart-product-list">
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/1.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand-Made Garlic Mortar</a>
-                            <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/2.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Handmade Ceramic Pottery</a>
-                            <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{% static 'eshop/assets/images/product-image/3.jpg' %}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand Painted Bowls</a>
-                            <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="foot">
-                <div class="buttons mt-30px">
-                    <a href="cart.html" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                    <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+  
     <!-- OffCanvas Cart End -->
 
     <!-- OffCanvas Menu Start -->
@@ -402,7 +321,7 @@
                         </ul>
                     </li>
                     <li><a href="about.html">About</a></li>
-                    <li>
+                    <!-- <li>
                         <a href="#"><span class="menu-text">Pages</span></a>
                         <ul class="sub-menu">
                             <li>
@@ -433,7 +352,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li><a href="#"><span class="menu-text">Shop</span></a>
                         <ul class="sub-menu">
                             <li>
@@ -447,11 +366,11 @@
                                     </li>
                                     <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
                                     </li>
-                                    <li><a href="cart.html">Cart Page</a></li>
+                                    <li><a href="{% url 'carts' %}">Cart Page</a></li>
                                     <li><a href="checkout.html">Checkout Page</a></li>
                                 </ul>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#"><span class="menu-text">product Details Page</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="single-product.html">Product Single</a></li>
@@ -463,8 +382,8 @@
                                     <li><a href="single-product-slider.html">Product Slider</a></li>
                                     <li><a href="single-product-gallery-left.html">Product Gallery Left</a>
                                 </ul>
-                            </li>
-                            <li>
+                            </li> -->
+                            <!-- <li>
                                 <a href="#"><span class="menu-text">Single Product Page</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="single-product-gallery-right.html">Product Gallery
@@ -479,10 +398,10 @@
                                     <li><a href="login.html">Login & Register Page</a></li>
                                     <li><a href="empty-cart.html">Empty Cart Page</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
-                    <li><a href="#"><span class="menu-text">Blog</span></a>
+                    <!-- <li><a href="#"><span class="menu-text">Blog</span></a>
                         <ul class="sub-menu">
                             <li><a href="blog-grid.html">Blog Grid Page</a></li>
                             <li><a href="blog-grid-left-sidebar.html">Grid Left Sidebar</a></li>
@@ -491,7 +410,7 @@
                             <li><a href="blog-single-left-sidebar.html">Single Left Sidebar</a></li>
                             <li><a href="blog-single-right-sidebar.html">Single Right Sidbar</a>
                         </ul>
-                    </li>
+                    </li> -->
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
@@ -520,145 +439,7 @@
     <!-- OffCanvas Menu End -->
      
 
-    <!-- Modal -->
-    <div class="modal modal-2 fade" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
-                            <!-- Swiper -->
-                            <div class="swiper-container gallery-top">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/zoom-image/1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/zoom-image/2.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/zoom-image/3.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/zoom-image/4.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/zoom-image/5.jpg' %}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-container gallery-thumbs mt-20px">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/small-image/1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/small-image/2.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/small-image/3.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/small-image/4.jpg' %}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto"
-                                            src="{% static 'eshop/assets/images/product-image/small-image/5.jpg' %}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
-                            <div class="product-details-content quickview-content">
-                                <h2>Hand-Made Garlic Mortar</h2>
-                                <div class="pricing-meta">
-                                    <ul class="d-flex">
-                                        <li class="new-price">$20.90</li>
-                                        <li class="old-price"><del>$30.90</del></li>
-                                    </ul>
-                                </div>
-                                <div class="pro-details-rating-wrap">
-                                    <div class="rating-product">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <span class="read-review"><a class="reviews" href="#">( 2 Review )</a></span>
-                                </div>
-                                <div class="stock mt-30px">
-                                    <span class="avallabillty">Availability: <span class="in-stock"><i
-                                                class="fa fa-check"></i>In Stock</span></span>
-                                </div>
-                                <p class="mt-30px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                    eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
-                                    nostrud exercitation ullamco laboris </p>
-                                <div class="pro-details-quality">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                    </div>
-                                    <div class="pro-details-cart">
-                                        <button class="add-cart"> Add To
-                                            Cart</button>
-                                    </div>
-                                    <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                        <a href="wishlist.html"><i class="pe-7s-like"></i></a>
-                                    </div>
-                                </div>
-                                <div class="pro-details-categories-info pro-details-same-style d-flex">
-                                    <span>Categories: </span>
-                                    <ul class="d-flex">
-                                        <li>
-                                            <a href="#">Handmade, </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Furniture, </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Decore</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="pro-details-social-info pro-details-same-style d-flex">
-                                    <span>Share: </span>
-                                    <ul class="d-flex">
-                                        <li>
-                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-google"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-youtube"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="payment-img">
-                                    <a href="#"><img src="{% static 'eshop/assets/images//icons/payment.png' %}" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Modal end -->
 
     <!-- Global Vendor, plugins JS -->

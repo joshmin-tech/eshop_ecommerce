@@ -48,6 +48,42 @@ User management
     </table>
   </div>
 
+  <nav aria-label="...">
+    {% if userdata.has_other_pages %}
+    <ul class="pagination">
+      {% if userdata.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{userdata.previous_page_number}}" tabindex="-1">Previous</a>
+      </li>
+        {% else %}
+       <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+        {% endif %}
+         {% for i in userdata.paginator.page_range %}
+          {% if userdata.number == i %}      
+      <li class="page-item active">
+        <a class="page-link" href="#">{{i}}<span class="sr-only"></span></a>
+      </li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if userdata.has_next %} 
+      <li class="page-item">
+        <a class="page-link" href="?page={{userdata.next_page_number}}">Next</a>
+      </li>
+      {% else %}
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+
+
+
+  
+
+
 {% endblock page_content %}
 
 {% block custom_js %}

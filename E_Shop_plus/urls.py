@@ -20,11 +20,15 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [    
-    path('',include("cart.urls")),
-    path('admin/', admin.site.urls),
+    
+    path('',include('cart.urls')),
+    path('admin/', admin.site.urls),    
     path('accounts/',include('accounts.urls')),
     path('adminpanel/',include("secureadmin.urls")),
     path('store/',include('store.urls')),
+    path('order/',include('order.urls')),
+    path('accounts_google/', include('allauth.urls')),
+    
     
     
 

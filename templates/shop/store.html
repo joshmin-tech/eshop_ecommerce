@@ -125,12 +125,27 @@
                                                         <h5 class="title"><a href="">{{ i.product_name }}
                                                             </a>
                                                         </h5>
+                                                        {% if i.offer_price == None %}
                                                         <span class="price">
                                                             <span class="new">₹ {{ i.price }}</span>
                                                         </span>
+                                                        <span class="price">
+                                                            <span class="new"></span>
+                                                        </span>
+                                                        {% else %}
+                                                        <span class="price">
+                                                            <span class="new">₹ {{ i.offer_price }}</span>
+                                                        </span>
+                                                        <span class="price">  
+                                                            <span class="new"><strike>₹ {{ i.price }}</strike></span>
+                                                        </span>
+                                                        {% endif %}
                                                     </div>
-                                                    <button title="Add To Cart" class=" add-to-cart">Add
-                                                        To Cart</button>
+                                                
+                                                    
+                                                    <a  href="{% url 'add_cart' i.id %}" title="Add To Cart" class=" add-to-cart">Add
+                                                        To Cart</a>
+                                                   
                                                 </div>
                                             </div>
                                             {% endfor %}
@@ -146,15 +161,30 @@
                         <!--  Pagination Area Start -->
                         <div class="pro-pagination-style text-center text-lg-end" data-aos="fade-up" data-aos-delay="200">
                             <div class="pages">
+                                {% if pro.has_other_pages %}
                                 <ul>
-                                    <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
-                                    </li>
-                                    <li class="li"><a class="page-link" href="#">1</a></li>
-                                    <li class="li"><a class="page-link active" href="#">2</a></li>
-                                    <li class="li"><a class="page-link" href="#">3</a></li>
-                                    <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
-                                    </li>
+                                    
+                                    {% if pro.has_previous %}
+                                    <li class="li"><a class="page-link" href="?page={{pro.previous_page_number}}"><i class="fa fa-angle-left"></i></a></li>
+                                    {% else %}
+                                   
+                                    {% endif %}
+
+                                    {% for i in pro.paginator.page_range %}
+                                        {% if pro.number == i %}
+                                        <li class="li"><a class="page-link active" href="#">{{i}}</a></li>
+                                        {% else %}
+                                        <li class="li"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if pro.has_next %}                                    
+                                    <li class="li"><a class="page-link" href="?page={{pro.next_page_number}}"><i class="fa fa-angle-right"></i></a></li>
+                                    {% else %}
+                                   
+                                    {% endif %}
+                                    
                                 </ul>
+                                {% endif %}
                             </div>
                         </div>
                         <!--  Pagination Area End -->
@@ -180,75 +210,13 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget">
-                            <h4 class="sidebar-title">Color</h4>
-                            <div class="sidebar-widget-color">
-                                <ul>
-                                    <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                            <span>(65)</span> </a></li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> Gold <span>(14)</span>
-                                        </a></li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> Golden <span>(21)</span>
-                                        </a></li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> White <span>(16)</span>
-                                        </a></li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> Black <span>(12)</span>
-                                        </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget">
-                            <h4 class="sidebar-title">Size</h4>
-                            <div class="sidebar-widget-size">
-                                <ul>
-                                    <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                            <span>(6)</span> </a></li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> S <span>(12)</span> </a>
-                                    </li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> M <span>(21)</span> </a>
-                                    </li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> L <span>(16)</span> </a>
-                                    </li>
-                                    <li><a href="#" class=""><i class="fa fa-angle-right"></i> XL <span>(22)</span> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar single item -->
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget mt-8">
-                            <h4 class="sidebar-title">Price Filter</h4>
-                            <div class="price-filter">
-                                <div class="price-slider-amount">
-                                    <input type="text" id="amount" class="p-0 h-auto lh-1" name="price"
-                                        placeholder="Add Your Price" />
-                                </div>
-                                <div id="slider-range"></div>
-                            </div>
-                        </div>
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget-image ">
+
+                        <!-- <div class="sidebar-widget-image ">
                             <a href="#" class="single-banner">
                                 <img src="{% static 'eshop/assets/images/banner/11.jpg' %}" alt="">
                             </a>
-                        </div>
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget tag m-0">
-                            <h4 class="sidebar-title">Tags</h4>
-                            <div class="sidebar-widget-tag">
-                                <ul>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Organic</a></li>
-                                    <li><a href="#">Old Fashion</a></li>
-                                    <li><a href="#">Men</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Dress</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar single item -->
+                        </div> -->
+
                     </div>
                 </div>
             </div>

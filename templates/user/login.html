@@ -47,7 +47,7 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="{% url 'otp_login' %}" method="post">
+                                    <form action="{% url 'login' %}" method="post">
                                         {% csrf_token %}
                                         <input type="text" name="email" placeholder="username" />
                                         <input type="password" name="password" placeholder="password" />
@@ -55,7 +55,7 @@
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox" />
                                                 <a class="flote-none" href="javascript:void(0)">Remember me</a>
-                                                <a href="#">Forgot Password?</a>
+                                                <a href="{% url 'forgotpassword' %}">Forgot Password?</a>
                                                 
                                             </div>
                                             <button type="submit"><span>Login</span></button>

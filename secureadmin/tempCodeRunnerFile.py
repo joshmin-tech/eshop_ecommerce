@@ -1,0 +1,1 @@
+ accept=OrderProduct.objects.filter(status='Accepted').count()

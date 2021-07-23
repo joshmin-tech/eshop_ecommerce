@@ -1,5 +1,6 @@
-from django.db import models
 
+from django.db import models
+from datetime import date
 # Create your models here.
 
 #superadmin
@@ -62,3 +63,6 @@ class Account(AbstractBaseUser):
     def has_module_perm(self,add_label):
         return True
 # Create your models here.
+
+
+        

@@ -1,0 +1,174 @@
+{% extends 'admin/base_for_report.html' %}
+{% block title %}
+Offer View
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Offer View
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+
+
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+           
+                <div class="row">
+                    
+                    <div class="col-sm-5">
+                     
+                        
+                       <h4>Category offer</h4>
+                        
+                    </div>
+
+                    
+                 
+                </div>
+            </div>
+            <input type="text" id="searchbox" style="width: 20rem; border-radius: 3px;" placeholder="search offer..."
+            class="my-2 ml-2" onkeyup="searchrecords()">
+            <table class="table table-striped table-hover" id="table1">
+                <thead>
+                    <tr>
+                        <th>Offer ID</th>
+                        <th>category</th>
+                        <th>Offer Percentage</th>						
+                        <th>offer Start</th>
+                        <th>offer End</th>
+                        <th>validity</th>
+                        <th>Actions</th>
+                       
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for offer in category_offer %}
+                    <tr>
+                      
+                        <!-- <td><a href="#"><img src="{{product.image1.url}}"  width="50px" height="40px" alt=""></a></td> -->
+                        <td>{{offer.id}}</td>
+                        <td>{{offer.category}}</td>
+                        <td>{{offer.offer}}</td>
+                        <td>{{offer.offer_start}}</td>                        
+                        <td>{{offer.offer_end}}</td>
+                        {% if offer.check_expired == True %}
+                           <td><button class="btn btn-sm btn-success">New</button></td>
+                           {% else %}
+                           <td><button class="btn btn-sm btn-danger">Expired</button></td>
+
+                           {% endif %}
+
+                           <td><a href="{% url 'delete_category_offer' offer.id %}" onclick="return confirm('Are you sure you want to delete this item')" class="btn btn-danger">Delete</a></td>
+                        
+                      
+
+         
+                 
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+            </table>
+
+            
+        <div class="table-wrapper">
+           
+                <div class="row">
+                    
+                    <div class="col-sm-5">
+                     
+                        
+                       <h4>Product offer</h4>
+                        
+                    </div>
+
+                    
+                   
+                </div>
+            </div>
+           
+            <table class="table table-striped table-hover" id="table2">
+                <thead>
+                    <tr>
+                        <th>Offer ID</th>
+                        <th>category</th>
+                        <th>Offer Percentage</th>						
+                        <th>offer Start</th>
+                        <th>offer End</th>
+                        <th>Validity</th>
+                        <th>Actions</th>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for offer in product_offer %}
+                    <tr>
+                      
+                      
+                        <td>{{offer.id}}</td>
+                        <td>{{offer.product}}</td>
+                        <td>{{offer.offer}}</td>
+                        <td>{{offer.offer_start}}</td>                        
+                        <td>{{offer.offer_end}}</td>
+                        {% if offer.check_expired == True %}
+                        <td><button class="btn btn-sm btn-success">New</button></td>
+                        {% else %}
+                        <td><button class="btn btn-sm btn-danger">Expired</button></td>
+
+                        {% endif %}
+                        <td><a href="{% url 'delete_product_offer' offer.id %}" onclick="return confirm('Are you sure you want to delete this item')" class="btn btn-danger">Delete</a></td>
+                        
+                        
+                      
+
+         
+                 
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+            </table>
+
+            
+           
+        </div>
+    </div>
+</div> 
+
+
+    
+<script type="text/javascript">
+
+    function searchrecords() {
+      var input, table, tr, td, filter, i, txtdata;
+      input = document.getElementById('searchbox');
+      filter = input.value.toUpperCase();
+      table = document.getElementById('table1');
+      tr = document.getElementsByTagName('tr');
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtdata = td.innerText;
+          if (txtdata.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          }
+          else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    
+  </script>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

@@ -1,0 +1,111 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+Order List
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Order List
+{% endblock page_title %}
+
+{% block page_content %}
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sl No:</th>
+        <th>Order ID</th>
+        <th>User Name</th>
+        <th>User Mail ID</th>
+        <th>Product</th>
+        <th>Product Price</th>
+        <th>Quantity</th>
+        <th>Order Status</th>
+
+
+
+
+
+        <!-- <th>created_date</th>
+        <th>modified_date</th> -->
+      </tr>
+    </thead>
+    <body>
+      
+      {% for i in orders %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td> {{ i.payment }}</td>
+        <td> {{ i.order }}</td>
+        <td>{{ i.user }}</td>
+        <!-- <td> <img style="width:60px;" src=" {{ i.images1.url }}" ></td> -->
+        <td> {{ i.product }}</td>
+        <td> {{ i.product_price }}</td>
+        <td> {{ i.quantity }}</td>
+        {% if i.status != 'Cancelled' %}
+        <td>Curent Status: {{ i.status }}
+          <form action="{% url 'order_status' i.id %}" method="POST">
+            {% csrf_token %}
+            {{ forms.status }}
+            <input type="submit" value="Change Status" class="btn btn-warning ">
+        </td>
+        {% else %}
+        <!-- <td style=color:red >Curent Status: {{ i.status }}</td> -->
+        <td>
+          <img
+            src="https://media.istockphoto.com/vectors/cancelled-rubber-stamp-cancelled-rubber-stamp-seal-vector-vector-vector-id1189267550?k=6&m=1189267550&s=612x612&w=0&h=K8kAClBNg1s4BAyAvG5KYclYhaY1h1PuGUzMjdZ0pS0="
+            alt="Girl in a jacket" width="100" height="60">
+        </td>
+        {% endif %}
+        </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </body>
+  </table>
+</div>
+
+
+    
+    <nav aria-label="...">
+      {% if orders.has_other_pages %}
+      <ul class="pagination">
+        {% if orders.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{orders.previous_page_number}}" tabindex="-1">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        {% endif %}
+        {% for i in orders.paginator.page_range %}
+        {% if orders.number == i %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{i}}<span class="sr-only"></span></a>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if orders.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{orders.next_page_number}}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+
+
+    {% endblock page_content %}
+
+    {% block custom_js %}
+    {% endblock custom_js %}

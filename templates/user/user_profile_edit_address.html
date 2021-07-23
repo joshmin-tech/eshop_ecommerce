@@ -1,0 +1,55 @@
+{% extends 'user/user_profile_base.html' %}
+
+
+{% block user_address %}
+
+<div class="" id="address">
+    <h4>Edit Address</h4>
+  
+    <form action="{% url 'user_profile_edit_address' address.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">First Name</label>
+              <input type="text" class="form-control" value="{{address.first_name}}" id="inputCity" placeholder="First Name" name="first_name" >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputCity">Last Name</label>
+              <input type="text" class="form-control" value="{{address.last_name}}"id="inputCity" placeholder="Last Name" name="last_name" >
+            </div>        
+          </div> 
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Phone</label>
+              <input type="text" class="form-control" value="{{address.phone}}"id="inputCity" placeholder="Phone Number"name="phone" >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputCity">Email</label>
+              <input type="text" class="form-control" value="{{address.email}}"id="inputCity" placeholder="Mail ID" name="email">
+            </div>        
+          </div>  
+    
+        <div class="form-group">
+          <label for="inputAddress">Address Line 1</label>
+          <input type="text" class="form-control"value="{{address.address_line1}}" id="inputAddress" placeholder="Address Line 1"name="address_line1">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Address Line 2</label>
+          <input type="text" class="form-control"value="{{address.address_line2}}" id="inputAddress2" placeholder="Address Line 2"name="address_line2">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control"value="{{address.city}}" id="inputCity" placeholder="City"name="city" >
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity">State</label>
+            <input type="text" class="form-control"value="{{address.state}}" id="inputCity" placeholder="State" name="state">
+          </div>        
+        </div>    
+        <br> 
+        <button type="submit" class="btn btn-primary" >Add Address</button>
+        <br>
+    </form>
+{% endblock %}

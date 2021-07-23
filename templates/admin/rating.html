@@ -1,0 +1,90 @@
+{% extends 'admin/base_template.html' %}
+{% block title %}
+Rating
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+Review and Rating
+{% endblock page_title %}
+
+
+
+{% block page_content %}
+
+<div class="table-responsive">
+    <table class="table table-bordered" >
+      <thead>
+        <tr>
+          <th>Sl. No:</th>
+          <th>Product Name</th>
+          <th>Rating</th>
+          <th>User Email</th>
+          <th>Updated Time</th>
+          <th>description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for i in rating %}
+        <tr>
+          <td> {{ forloop.counter }} </td>
+          <td> {{ i.product }} </td>
+          <td> {{ i.rating }}</td>
+          <td> {{ i.user }}</td>
+          <td> {{ i.updated_at }} </td>
+          <td>{{ i.review }} </td>
+          <td>{% if i.status %}<a class="btn btn-danger" href="{% url 'rating_block' i.id %}">Block</a>
+            {% else %}
+          <a class="btn btn-danger bg-success" href="{% url 'rating_unblock' i.id %}">Unblock</a>
+            {% endif %}
+          </td>
+         
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="...">
+    {% if userdata.has_other_pages %}
+    <ul class="pagination">
+      {% if userdata.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{userdata.previous_page_number}}" tabindex="-1">Previous</a>
+      </li>
+        {% else %}
+       <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+        {% endif %}
+         {% for i in userdata.paginator.page_range %}
+          {% if userdata.number == i %}      
+      <li class="page-item active">
+        <a class="page-link" href="#">{{i}}<span class="sr-only"></span></a>
+      </li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if userdata.has_next %} 
+      <li class="page-item">
+        <a class="page-link" href="?page={{userdata.next_page_number}}">Next</a>
+      </li>
+      {% else %}
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+
+
+
+  
+
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

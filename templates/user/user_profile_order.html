@@ -1,0 +1,36 @@
+{% extends 'user/user_profile_base.html' %}
+{% load static %}
+{% block user_order %}
+
+<div class="" id="orders">
+    
+    <h4>Orders</h4>
+    <div class="table_page table-responsive">
+        <table>
+            <thead>
+               
+                <tr>
+                    <th>Sl.No.</th>
+                    <th>Product</th>                                            
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img align="left" src="{{ order.product.images1.url }}" width="40" height="70">{{ order.product }}</td>
+                    <td>₹ {{ order.product_price }} per item </td>
+                    <td><span class="success">{{ order.status }}</span></td>
+                    
+                    <td><a href="{% url 'user_profile_order_details' order.id %}" class="view">view</a></td>
+                </tr>
+             
+                {% endfor  %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

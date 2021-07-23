@@ -23,9 +23,21 @@
   <link rel="stylesheet" href="{% static 'admin/assets/css/style.css' %}">
   <link rel="stylesheet" href="{% static 'admin/assets/css/components.css' %}">
 
+  <!-- for pie diagram -->
+  <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+
   {% block custom_css %}
   {% endblock custom_css %}
 </head>
+<style>
+  html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
 <body>
   <div id="app">
@@ -43,6 +55,7 @@
                   {% endblock page_title %}
               </h1>
           </div>
+          
           {% if messages %}
           {% for message in messages %}
           {% if message.tags == "success" %}
@@ -62,9 +75,97 @@
 
 
           {% block page_content %}
+          <section class="section">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">
+                    
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-archive"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Total Orders</h4>
+                    </div>
+                    <div class="card-body">
+                      {{total_order}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">
+                    
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-rupee-sign"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Total Sales</h4>
+                    </div>
+                    <div class="card-body">
+                      {{sales}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                  <div class="card-stats">                   
+                   
+                  </div>
+                  <div class="card-icon shadow-primary bg-primary">
+                    <i class="fas fa-shopping-bag"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="card-header">
+                      <h4>Pending Orders</h4>
+                    </div>
+                    <div class="card-body">
+                     {{pend}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Turnover</h4>
+                  </div>
+                  <div id="container" style="width: 500px; height: 500px"></div>
+                             
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Order Status</h4>
+                  </div>
+                  <div id="container" style="width: 500px; height: 100px"></div>
+                  <!-- <div class="row"style="margin-left: 500px;width:800px; height:600px"> -->
+                    <canvas id="myChart" ></canvas>	      
+                </div>
+              </div>
+            </div>
+                    
+
+          
+          </section>
+
           {% endblock page_content %}
         </section>
       </div>
+     
       <footer class="main-footer">
         <div class="footer-left">
           Copyright &copy; 2021 <div class="bullet"></div> Eshopplus online shopping platform
@@ -99,6 +200,114 @@
   <script src="{% static 'admin/assets/js/scripts.js' %}"></script>
   <script src="{% static 'admin/assets/js/custom.js' %}"></script>
   {% block custom_js %}
+  <script>
+    anychart.onDocumentReady(function() {
+
+      // set the data
+      var data = [
+          {x: "Paypal", value: "{{sum_paypal}}"},
+          {x: "COD", value: "{{sum_cod}}"},
+          {x: "Razor Pay", value: "{{sum_razor}}"},
+        
+      ];
+    
+      // create the chart
+      var chart = anychart.pie();
+    
+      // set the chart title
+      chart.title("Receipts Categorised by Payment Methods");
+    
+      // add the data
+      chart.data(data);
+    
+      // display the chart in the container
+      chart.container('container');
+      chart.draw();
+    
+    });
+  </script>
+
+
+  
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Pending', 'Accepted', 'Cancelled', 'Delivered','user_cancelled'],
+          datasets: [{
+              label: 'orders status bar chart',
+              data: [{{pend}},{{accept}},{{cancelled}},{{deliver}},{{user_cancelled}}],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  
+                 
+                  'rgba(100, 129, 64, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(132, 66, 72, 1)',
+              
+                  'rgba(255, 159, 64, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  
+  
+  var ctx = document.getElementById('myline').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['day1','day2','day3','day4','day5','day6','day7'],
+          datasets: [{
+              label: '# of order',
+              data: [{{day1}},{{day2}},{{day3}},{{day4}},{{day5}},{{day6}},{{day7}}],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  
+                 
+                  'rgba(100, 129, 64, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(132, 66, 72, 1)',
+              
+                  'rgba(255, 159, 64, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  
+    
+    </script>
+  
   {% endblock custom_js %}
 
 

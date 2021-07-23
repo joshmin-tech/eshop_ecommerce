@@ -1,0 +1,41 @@
+{% extends 'user/user_profile_base.html' %}
+
+
+{% block user_address %}
+
+<div class="" id="address">
+    <h4>Address Page</h4>
+        <a type="button" href="{% url 'user_profile_add_address' %}" class="btn btn-outline-success p-2">Add Address</a>
+
+    <p>You can save your addresses here</p>
+    <h5 class="card-title">Saved addresses</h5>
+    {% for address in address %}
+    <div class="card bg-light mb-3" style="max-width: 400px;">
+        <!-- <div class="card-header">Header</div> -->
+        <div class="card-body">
+          
+          <p class="mb-2"><strong>Name: {{address.first_name}} {{address.last_name}}</strong></p>
+  
+        
+        <span class="mb-1 d-inline-block"><strong>Address :</strong>
+            <br> {{address.address_line1}},</span>
+        <br>
+        <span class="mb-1 d-inline-block"><strong></strong>{{address.address_line2}},{{address.city}}</span>,
+        <br>
+        <span class="mb-1 d-inline-block"><strong></strong> {{address.state}}</span>
+        <br>
+        </div>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+    <ul class="nav d-flex justify-content-left">
+    <li class="nav-item">
+        <a class="nav-link btn btn-success ml-5" href="{% url 'user_profile_edit_address' address.id %}">Edit</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link btn btn-danger ml-5" href="{% url 'user_profile_delete_address' address.id %}">Delete</a><br>
+    </li>
+    </ul>
+</div>
+{% endfor %}
+
+{% endblock %}

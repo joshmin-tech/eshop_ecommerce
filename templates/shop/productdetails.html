@@ -2,122 +2,135 @@
 {% load static %}
 
 {% block content %}
+<style> 
+    input[type=button1], input[type=submit1], input[type=reset1] {
+      background-color: #d89f69;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    </style>
 
-        <!-- Product Details Area Start -->
+<!-- Product Details Area Start -->
 
-        <div class="product-details-area pt-100px pb-100px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
-                        <!-- Swiper -->
-                        <div class="swiper-container zoom-top">
-                            <div class="swiper-wrapper" >
-                                <div class="swiper-slide  " id="container1">
-                                    <img class="img-responsive m-auto"  src="{{ single_product.images1.url }}"
-                                        alt="Zoom Image" id="img1">
-                                </div>
-                                <div class="swiper-slide  " id="container2">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/zoom-image/2.jpg' %}"
-                                        alt="Zoom Image" id="img2">
-                                </div>
-                                <div class="swiper-slide "id="container3">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/zoom-image/3.jpg' %}"
-                                        alt="Zoom Image" id="img3">
-                                </div>
-                                <div class="swiper-slide "id="container4">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/zoom-image/4.jpg' %}"
-                                        alt="Zoom Image" id="img4">
-                                </div>
-                                <div class="swiper-slide "id="container5">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/zoom-image/5.jpg' %}"
-                                        alt="Zoom Image" id="img5">
-                                </div>
-                            </div>
+<div class="product-details-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
+                <!-- Swiper -->
+                <div class="swiper-container zoom-top">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide  " id="container1">
+                            <img class="img-responsive m-auto" src="{{ single_product.images1.url }}" alt="Zoom Image"
+                                id="img1">
                         </div>
-                        <div class="swiper-container mt-20px zoom-thumbs ">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto" src="{{ single_product.images1.url }}"
-                                        alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/small-image/2.jpg' %}"
-                                        alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/small-image/3.jpg' %}"
-                                        alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/small-image/4.jpg' %}"
-                                        alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto" src="{% static 'eshop/assets/images/product-image/small-image/5.jpg' %}"
-                                        alt="">
-                                </div>
-                            </div>
+                        <div class="swiper-slide  " id="container2">
+                            <img class="img-responsive m-auto" src="{{ single_product.images2.url }}" alt="Zoom Image"
+                                id="img2">
+                        </div>
+                        <div class="swiper-slide " id="container3">
+                            <img class="img-responsive m-auto" src="{{ single_product.images3.url }}" alt="Zoom Image"
+                                id="img3">
+                        </div>
+                        <div class="swiper-slide " id="container4">
+                            <img class="img-responsive m-auto" src="{{ single_product.images4.url }}" alt="Zoom Image"
+                                id="img4">
                         </div>
                     </div>
-                    <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
-                        <div class="product-details-content quickview-content ml-25px">
-                            <h2>{{ single_product.product_name }}</h2>
-                            <div class="pricing-meta">
-                                <ul class="d-flex">
-                                    <li class="new-price">₹ {{ single_product.price }}</li>
-                                    <!-- <li class="old-price"><del>$ 250</del></li> -->
-                                </ul>
-                            </div>
-                            <div class="pro-details-rating-wrap">
-                                <div class="rating-product">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span class="read-review"><a class="reviews" href="#">( 2 Review )</a></span>
-                            </div>
-                            <div class="stock mt-30px">
-                                {% if single_product.stock <= 0 %}
-                                <span class="avallabillty">Availability: <span class="in-stock"><i
-                                            class="fa fa-check"></i>Out of Stock</span></span>
-                                {% else %}
-                                <span class="avallabillty">Availability: <span class="in-stock"><i
-                                    class="fa fa-check"></i>In Stock</span></span>
-                                {% endif %}
-                            </div>
-                            <p class="mt-30px mb-0">{{ single_product.description }}</p>
+                </div>
+                <div class="swiper-container mt-20px zoom-thumbs ">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img class="img-responsive m-auto" src="{{ single_product.images1.url }}" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="img-responsive m-auto" src="{{ single_product.images2.url }}" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="img-responsive m-auto" src="{{ single_product.images3.url }}" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="img-responsive m-auto" src="{{ single_product.images4.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-details-content quickview-content ml-25px">
+                    <h2>{{ single_product.product_name }}</h2>
+                    <div class="pricing-meta">
+                        <ul class="d-flex">
+                            <li class="new-price">₹ {{ single_product.price }}</li>
+                            <!-- <li class="old-price"><del>$ 250</del></li> -->
+                        </ul>
+                    </div>
+                    <div class="pro-details-rating-wrap">
+                        <div class="rating-product">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <span class="read-review"><a class="reviews" href="#">( 2 Review )</a></span>
+                    </div>
+                    <div class="stock mt-30px">
+                        {% if single_product.stock <= 0 %} <span class="avallabillty">Availability: <span
+                                class="in-stock"><i class="fa fa-check"></i>Out of Stock</span></span>
+                            {% else %}
+                            {% if in_cart %}
                             <div class="pro-details-quality">
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                <div class="pro-details-cart">
+                                    <a class="add-cart"> Added to Cart</a>
                                 </div>
                                 <div class="pro-details-cart">
-                                    <button class="add-cart"> Add To
-                                        Cart</button>
-                                </div>
-                                <div class="pro-details-cart">
-                                    <button class="add-cart buy-button"> Buy It Now</button>
-                                </div>
-                                <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                    <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                                    <a href="{% url 'carts' %}" class="add-cart buy-button"> View Cart</a>
                                 </div>
                             </div>
-                            <div class="pro-details-categories-info pro-details-same-style d-flex">
-                                <span>Categories: </span>
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#">{{ single_product.category }} </a>
-                                    </li>
-                                    <!-- <li>
+
+                            {% else %}
+                            <span class="avallabillty">Availability: <span class="in-stock"><i
+                                        class="fa fa-check"></i>In Stock</span></span>
+
+                    </div>
+
+                    <div class="pro-details-quality">
+                        <!-- <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                </div> -->
+                        <div class="pro-details-cart">
+                            <a href="{% url 'add_cart' single_product.id %}" class="add-cart"> Add To
+                                Cart</a>
+                        </div>
+                        <!-- <div class="pro-details-cart">
+                                    <button class="add-cart buy-button"> Buy It Now</button>
+                                </div> -->
+                        <div class="pro-details-compare-wishlist pro-details-wishlist ">
+                            <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+
+                    <p class="mt-30px mb-0">{{ single_product.description }}</p>
+                    <div class="pro-details-categories-info pro-details-same-style d-flex">
+                        <span>Categories: </span>
+                        <ul class="d-flex">
+                            <li>
+                                <a href="#">{{ single_product.category }} </a>
+                            </li>
+                            <!-- <li>
                                         <a href="#">Furniture, </a>
                                     </li>
                                     <li>
                                         <a href="#">Decore</a>
                                     </li> -->
-                                </ul>
-                            </div>
-                            <!-- <div class="pro-details-social-info pro-details-same-style d-flex">
+                        </ul>
+                    </div>
+                    <!-- <div class="pro-details-social-info pro-details-same-style d-flex">
                                 <span>Share: </span>
                                 <ul class="d-flex">
                                     <li>
@@ -137,18 +150,128 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <!-- <div class="payment-img">
+                    <!-- <div class="payment-img">
                                 <a href="#"><img src="{% static 'eshop/assets/images//icons/payment.png' %}" alt=""></a>
                             </div> -->
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    
-    
+
+        <div class="row p-5">
+            <div class="col-md-8" >
+
+
+
+                <form action="{% url 'submit_review' single_product.id %}" method="POST">
+                    {% csrf_token %}
+                    <h5>Write Your Review</h5>
+
+                    <div>
+                        <!-- Rating stars -->
+                        <label>How do you rate this product?</label>
+                        <br>
+                        <div class="rate">
+                            <input type="radio" name="rating" id="rating10" value="5" required /><label
+                                for="rating10" title="5"></label>
+                            <input type="radio" name="rating" id="rating9" value="4.5" required /><label
+                                for="rating9" title="4.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating8" value="4" required /><label
+                                for="rating8" title="4"></label>
+                            <input type="radio" name="rating" id="rating7" value="3.5" required /><label
+                                for="rating7" title="3.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating6" value="3" required /><label
+                                for="rating6" title="3"></label>
+                            <input type="radio" name="rating" id="rating5" value="2.5" required /><label
+                                for="rating5" title="2.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating4" value="2" required /><label
+                                for="rating4" title="2"></label>
+                            <input type="radio" name="rating" id="rating3" value="1.5" required /><label
+                                for="rating3" title="1.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating2" value="1" required /><label
+                                for="rating2" title="1"></label>
+                            <input type="radio" name="rating" id="rating1" value="0.5" required /><label
+                                for="rating1" title="0.5" class="half"></label>
+                        </div>
+                        <br>
+                        Review Title:
+                        <input type="text" class="form-control" name="subject" required>
+                        <br>
+                        Review:
+                        <textarea name="review" rows="4" class="form-control" required></textarea>
+                        <br>
+                        <!-- {% if user.is_authenticated %}
+                                    {% if orderproduct %}
+                                        <input type="submit" value="Submit Review" class="btn btn-primary">
+                                    {% else %}
+                                        <p>You must purchase this product to post a review.</p>
+                                    {% endif %}
+                                {% else %}
+                                <p>You must be logged in to post a review. <span><a href="{% url 'login' %}">Login now</a></span></p>
+                                {% endif %} -->
+
+                        {% if user.is_authenticated %}
+                        <button><input type="submit1" value="Submit Review"></button>
+                    
+                        {% else %}
+                        <p>You must be logged in to post a review. <span><a href="{% url 'login' %}">Login
+                                    now</a></span></p>
+                        {% endif %}
+                        <!-- <div class="alert alert-danger" role="alert" style="margin-top:10px;">
+                            2-Factor Review Submission is disabled for demo purpose.
+                        </div> -->
+
+                    </div>
+                    {% include 'alerts.html' %}
+                    <br>
+                    <header class="section-heading">
+                        <h3>Customer Reviews </h3>
+                        <div class="rating-star">
+                            <span>
+                                <i class="fa fa-star{% if single_product.averageReview < 0.5 %}-o{% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview < 1.5 %}-o{% elif single_product.averageReview >= 1.5 and single_product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview < 2.5 %}-o{% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview < 3.5 %}-o{% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview < 4.5 %}-o{% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                        <span>{{single_product.countReview}} reviews</span>
+                                </span>
+                        </div>
+                    
+                    </header>
+                    
+                    {% for review in review %}
+                                    <article class="box mb-3">
+                                        <div class="icontext w-100">
+                    
+                                            <div class="text">
+                                                <span class="date text-muted float-md-right">{{review.updated_at}} </span>
+                                                <h6 class="mb-1">{{review.user.full_name}} </h6>
+                                                <div class="rating-star">
+                                                    <span>
+                                                        <i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                                                        <i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                                                        <i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                                                        <i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                                                        <i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div> <!-- icontext.// -->
+                                        <div class="mt-3">
+                                            <h6>{{review.subject}}</h6>
+                                            <p>
+                                                {{review.review}}
+                                            </p>
+                                        </div>
+                                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+                </form>
+            </div>
+        </div>
+
         <!-- product details description area start -->
-        <div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
+        <!-- <div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
             <div class="container">
                 <div class="description-review-wrapper">
                     <div class="description-review-topbar nav">
@@ -294,23 +417,23 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- product details description area end -->
-    
+
         <script>
             const container1 = document.getElementById('container1')
             const img1 = document.getElementById('img1')
-    
+
             container1.addEventListener('mousemove', (e) => {
                 const x = e.clientX - e.target.offsetLeft
                 const y = e.clientY - e.target.offsetTop
-    
+
                 console.log(x, y)
                 img1.style.transformOrigin = `${x}px ${y}px`
                 img1.style.transform = 'scale(2)'
-    
+
             })
-    
+
             container1.addEventListener('mouseleave', (e) => {
                 img1.style.transform = " scale(1)"
             })
@@ -318,17 +441,17 @@
         <script>
             const container2 = document.getElementById('container2')
             const img2 = document.getElementById('img2')
-    
+
             container2.addEventListener('mousemove', (e) => {
                 const x = e.clientX - e.target.offsetLeft
                 const y = e.clientY - e.target.offsetTop
-    
+
                 console.log(x, y)
                 img2.style.transformOrigin = `${x}px ${y}px`
                 img2.style.transform = 'scale(2)'
-    
+
             })
-    
+
             container2.addEventListener('mouseleave', (e) => {
                 img2.style.transform = " scale(1)"
             })
@@ -336,17 +459,17 @@
         <script>
             const container3 = document.getElementById('container3')
             const img3 = document.getElementById('img3')
-    
+
             container3.addEventListener('mousemove', (e) => {
                 const x = e.clientX - e.target.offsetLeft
                 const y = e.clientY - e.target.offsetTop
-    
+
                 console.log(x, y)
                 img3.style.transformOrigin = `${x}px ${y}px`
                 img3.style.transform = 'scale(2)'
-    
+
             })
-    
+
             container3.addEventListener('mouseleave', (e) => {
                 img3.style.transform = " scale(1)"
             })
@@ -354,22 +477,22 @@
         <script>
             const container4 = document.getElementById('container4')
             const img4 = document.getElementById('img4')
-    
+
             container4.addEventListener('mousemove', (e) => {
                 const x = e.clientX - e.target.offsetLeft
                 const y = e.clientY - e.target.offsetTop
-    
+
                 console.log(x, y)
                 img4.style.transformOrigin = `${x}px ${y}px`
                 img4.style.transform = 'scale(2)'
-    
+
             })
-    
+
             container4.addEventListener('mouseleave', (e) => {
                 img4.style.transform = " scale(1)"
             })
         </script>
 
-  
 
-{% endblock %}
+
+        {% endblock %}

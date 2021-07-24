@@ -26,11 +26,7 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('adminpanel/',include("secureadmin.urls")),
     path('store/',include('store.urls')),
-    path('order/',include('order.urls')),
-    path('accounts_google/', include('allauth.urls')),
-    
-    
-    
+    path('order/',include('order.urls')),  
 
 ]
 if settings.DEBUG:

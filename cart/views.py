@@ -92,6 +92,7 @@ def carts(request, total=0, quantity=0, cart_items=None):
     grand_total = 0
     delivery_chrg = 0
     coupon_rate=0
+    coupon_offer=0
   
     try:        
         if request.user.is_authenticated:

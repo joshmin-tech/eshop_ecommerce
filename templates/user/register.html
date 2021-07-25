@@ -41,8 +41,8 @@
                         <div id="lg2" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="{% url 'register' %}"  method="post" name="register_form">
-                                        {% csrf_token %}
+                                    
+                                    
                                         
                                         <input type="text" name="first_name" placeholder="First Name" id="first_name" onkeyup="return /[a-z]/i.test(event.key)" onkeyup="nameChek()" onblur="nameChek()"/> 
                                         <p id="name-alert" style="color:red; margin-top:-25px;"></p>                                
@@ -56,11 +56,11 @@
                                         oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkPhone()" onblur="checkPhone()" />
                                         <p id="phone_alert" style="color:red; margin-top:-25px;"></p> 
                                         <input type="text" name="ref_code" placeholder="Referral Coupon Code" />
-                                        
+                                        <p id="display_error" style="color:red; margin-top:-25px;"></p>
                                         <div class="button-box">
-                                            <button type="submit"><span>Register</span></button>
+                                            <button type="submit" id="register_form"><span>Register</span></button>
                                         </div>
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
 </div>
 <!-- login area end -->
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
       
 const validated ={
@@ -80,7 +80,6 @@ const validated ={
     name2:false,
     email:false,
     mobile:false,
-    message:false,
     password:false
 }
     function nameChek() {
@@ -162,19 +161,60 @@ const validated ={
     }
 
     function allCheck(){
-        if(validated.name&&validated.email&&validated.mobile&&validated.message){
+        if(validated.name&&validated.name2&&validated.email&&validated.mobile&&validated.password){
             return true;
         }
         else{
+            console.log(validated)
             if(validated.name==false || validated.email==false || validated.phone==false || validated.messge==false){
                 nameChek();
+                nameChek2();
                 checkEmail();
-                checkNumber();
-                checkMessage();
+                checkPhone();
+                checkPassword();
             }
             return false;
         }
     }
+$("#register_form").click(function(event){
+    event.preventDefault();
+    let checkAllisTrue  = allCheck();
+    console.log(checkAllisTrue)
+    var email=$('#email').val()
+    var password=$('#PassEntry').val()
+    var first_name=$('#first_name').val()
+    var last_name=$('#first_name2').val()
+    var phone_number=$('#phone_number').val()
+    console.log(email,password,first_name,last_name,phone_number)
+    if(checkAllisTrue){
+        
+        $.ajax({
+            url:"{% url 'register' %}",
+            method: 'post',
+            data: {'email':email,'user_password':password,'first_name':first_name,'last_name':last_name,'phone_number':phone_number,'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            dataType: 'json',
+            success: function (data) {
+            console.log(data)
+            if(data.status){         
+
+                $('#display_error').html() ;
+                alert(data.message) ;   
+                window.location.href = ("{% url 'login'  %}");
+                           
+            }else{
+                $('#display_error').html(data.message) ;   
+            }
+
+            },
+            error: function(error){
+              console.log("Ajax cant send data")
+            }
+        })//ajax end
+    }else{ 
+        $('#display_error').html("INVALID FORM DETAILS") ;  
+    }
+})
+    
 </script>
 <script>
       // timeout before a callback is called

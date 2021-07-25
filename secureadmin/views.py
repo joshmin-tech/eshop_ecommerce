@@ -260,6 +260,7 @@ def add_product(request):
 
                 product = Product(category=cat, product_name=product_name, price=price, stock=stock, description=description,
                 slug=slug, is_available=avail, images1=img_data1, images2=img_data2, images3=img_data3, images4=img_data4)
+                print("hgfhgfghfgfh")
                 product.save()
                 messages.info(request,'Product Successfully Added')
             

@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from store.utils import generate_ref_code
 from category.models import Category
 from django.contrib import messages,auth
@@ -39,47 +39,70 @@ def register(re):
         phone_number=re.POST.get('phone_number')
         ref_code=re.POST.get('ref_code')
         username=email.split('@')[0]
-        user=Account.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=user_password,phone_number=phone_number)
-        user.save()
+        # new ajax
+        if Account.objects.filter(phone_number=phone_number).exists():
+            return JsonResponse({'status':False,'message':"phone number already exists"})
+
+
+        if Account.objects.filter(email=email).exists() :
+            return JsonResponse({'status':False,'message':"email already exists"})
+
+      
+        if Account.objects.filter(phone_number=phone_number).exists() != True and Account.objects.filter(email=email).exists() != True :
+            print("save",username)
+            user = Account.objects.create_user(first_name = first_name, last_name = last_name, phone_number = phone_number,email = email,password = user_password,username = username)
+            user.save()
+            user_code=generate_ref_code()
         
-        user_code=generate_ref_code()
+            if Referal.objects.filter(code=ref_code).exists():
+                recomm=Referal.objects.get(code=ref_code)
+                ref_user=Referal()
+                ref_user.user=user
+                ref_user.code=user_code
+                ref_user.recommended_by=recomm.user
+                ref_user.save()
+                Ref_Coup=ReferalCoupen()
+                Ref_Coup.coupon_code=user_code
+                Ref_Coup.user=user
+                Ref_Coup.discount=10
+                Ref_Coup.save()
+                Ref_Coup=ReferalCoupen()
+                Ref_Coup.coupon_code=recomm.code
+                Ref_Coup.user=recomm.user
+                Ref_Coup.discount=10
+                Ref_Coup.save()
+            else:      
+                ref_user=Referal()
+                ref_user.user=user
+                ref_user.code=user_code
+                ref_user.save()
+                return JsonResponse({'status':True,'message':"Registered Successfully"})
+                
+            return JsonResponse({'status':True,'message':"Registered Successfully"})
         
-        if Referal.objects.filter(code=ref_code).exists():
-            recomm=Referal.objects.get(code=ref_code)
-            ref_user=Referal()
-            ref_user.user=user
-            ref_user.code=user_code
-            ref_user.recommended_by=recomm.user
-            ref_user.save()
-            Ref_Coup=ReferalCoupen()
-            Ref_Coup.coupon_code=user_code
-            Ref_Coup.user=user
-            Ref_Coup.discount=10
-            Ref_Coup.save()
-            Ref_Coup=ReferalCoupen()
-            Ref_Coup.coupon_code=recomm.code
-            Ref_Coup.user=recomm.user
-            Ref_Coup.discount=10
-            Ref_Coup.save()
-        else:      
-            ref_user=Referal()
-            ref_user.user=user
-            ref_user.code=user_code
-            ref_user.save()
-            messages.success(re,"New User Successfully Registered")
-            return render(re,'user/register.html')  
-                  
-        messages.success(re,"New User Successfully Registered")
-        return render(re,'user/register.html')
+        
+        
+        # user=Account.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=user_password,phone_number=phone_number)
+        # user.save()
+        
+       
     else:
         return render(re,'user/register.html')
         
 
 def login(re):
+    if  re.user.is_authenticated:
+        return redirect('index')
     if re.method=="POST":
         email=re.POST.get('email')
         password=re.POST.get('password')
         user=auth.authenticate(email=email,password=password)
+        if Account.objects.filter(email=email).exists() :
+            obj = Account.objects.get(email=email)
+            if obj.is_active != True:
+                print("check true active")
+                messages.info(re,"Your Account has been Blocked")
+                return redirect('login')
         if user is not None:
             try:
                 cart=Cart.objects.get(cart_id=_cart_id(re))
@@ -127,7 +150,7 @@ def otp_login(request):
             otp = random.randint(100000,999999)
             strotp=str(otp)
             account_sid ='ACffc8f9e4b26715c4a91262f4668ff25e'
-            auth_token ='5a9fe2e0cf2bad337583862c074f851e'
+            auth_token ='615ecae4a764a37e0a324e0dfc9ad1be'
             client = Client(account_sid, auth_token)
 
             message = client.messages \

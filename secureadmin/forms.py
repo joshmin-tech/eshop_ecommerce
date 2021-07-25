@@ -25,7 +25,7 @@ class ProductForms(ModelForm):
 
     class Meta:
         model = Product
-        fields =  '__all__'
+        fields = ["product_name","slug","description","price","brand","images1","images2","images3","images4","stock","is_available","category"]
     def __init__(self, *args, **kwargs):
         super(ProductForms, self).__init__(*args, **kwargs)
         self.fields['category'].widget.attrs.update({'class': "form-control"})
